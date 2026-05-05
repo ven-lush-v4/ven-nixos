@@ -119,8 +119,8 @@ fetch = "microfetch";
 gitnix = "sudo lazygit -p /etc/nixos";
 githypr = "sudo lazygit -p ~/.config/hypr";
 gittalia = "sudo lazygit -p ~/.config/noctalia";
-adb-phone = "adb connect ven-phone:5555"
-scrcpy = "scrcpy --max-size 1080 --window-width 540 --window-height 1200"
+adb-phone = "adb connect ven-phone:5555";
+scrcpy = "scrcpy --max-size 1080 --window-width 540 --window-height 1200";
 	};
 };
 

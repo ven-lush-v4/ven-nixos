@@ -1,3 +1,5 @@
+# Edit this configuration file to define what should be installed on your system.  Help is available in the configuration.nix(5) man page 
+# and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, ... }:
 
@@ -26,9 +28,19 @@ home-manager.backupFileExtension = "backup";
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  boot.loader.systemd-boot.configurationLimit = 10;
   services.getty.autologinUser = "ven";
    
+  # Nix Store
+  nix.settings.auto-optimise-store = true;
+
+  # Garbage collection
+ nix.gc = {
+  automatic = true;
+  dates = "weekly";
+  options = "--delete-older-than 7d";
+ };
+
   # Plymouth/boot animation
   boot.plymouth = {
   enable = true;
@@ -40,23 +52,33 @@ home-manager.backupFileExtension = "backup";
   ];
 };
 
-boot.consoleLogLevel = 3;
-boot.initrd.verbose = false;
-boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
+  boot.consoleLogLevel = 3;
+  boot.initrd.verbose = false;
+  boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
 
   # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest; # base linux kernel
+  boot.kernelPackages = pkgs.cachyosKernels."linuxPackages-cachyos-latest"; # cachyos kernel | wait for cached version before uncommenting
 
-  nix.settings = {
-	substituters = [ "https://attic.xuyh0120.win/lantian" ];
-	trusted-public-keys = [ "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=" ];
+  # Alternative Binary Caches
+   nix.settings = {
+  substituters = [
+    "https://cache.nixos.org"
+    "https://nix-community.cachix.org"
+    "https://hyprland.cachix.org"
+    "https://attic.xuyh0120.win/lantian"
+    "https://cache.garnix.io"
+  ];
+  trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+    "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+  ];
 };
-  networking.hostName = "ven-nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.hostName = "ven-nixos"; # Define your hostname.
 
 
   # Enable networking
@@ -66,14 +88,14 @@ boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
   enable = true;
   powerOnBoot = true;
 }; 
-services.blueman.enable = true;
+  services.blueman.enable = true;
 
 # tailscale
-services.tailscale = {
+  services.tailscale = {
 	enable = true;
 };
-environment.etc. "xdg/autostart/kded6.desktop".source = "/dev/null";
-environment.pathsToLink = [ "/share/gsettings-schemas" "/share/glib-2.0" ];
+  environment.etc. "xdg/autostart/kded6.desktop".source = "/dev/null";
+  environment.pathsToLink = [ "/share/gsettings-schemas" "/share/glib-2.0" ];
 
   # Set your time zone.
   time.timeZone = "Europe/Dublin";
@@ -103,7 +125,7 @@ environment.pathsToLink = [ "/share/gsettings-schemas" "/share/glib-2.0" ];
 	programs.hyprland = {
 	enable = true;
 	xwayland.enable = true;
-};
+  };
 
 #GPU + Vulkan 
 hardware.graphics = {
@@ -115,8 +137,8 @@ hardware.graphics = {
 	};
 
 
-xdg.portal.enable = true;
-xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
+  xdg.portal.enable = true;
+  xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
 
 
   security.rtkit.enable = true;
@@ -125,7 +147,7 @@ xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
 	alsa.enable = true;
 	alsa.support32Bit = true;
 	pulse.enable = true;
-};
+  };
 
   # Configure console keymap
   console.keyMap = "uk";
@@ -142,11 +164,15 @@ xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  # AppImage Support
+  programs.appimage = {
+  enable = true;
+  binfmt = true;
+};
 
   # List packages installed in system profile. To search, run:
   # pks
   environment.systemPackages = with pkgs; [
-  
   helix
   # add languages below:
   nil # nix
@@ -164,7 +190,6 @@ xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
   udisks2
   udiskie
   easyrpg-player
-  lutris
   popsicle
   system-config-printer
   desktop-file-utils
@@ -186,8 +211,6 @@ xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
   gimp
   kdePackages.kdenlive
   qbittorrent
-  google-chrome
-  chromium
   libreoffice
   nemo
   proton-vpn
@@ -200,10 +223,17 @@ xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
   adw-gtk3
   vlc
   upower
-  ventoy
   file-roller
   kitty
   ];
+
+  services.flatpak = {
+	enable = true;
+	packages = [
+		"net.waterfox.waterfox"
+		"io.github.flattool.Warehouse"
+       ];
+   };
 
 #  manual package enabling:
   programs.steam.enable = true;
@@ -213,29 +243,15 @@ xdg.portal.extraPortals = with pkgs; [xdg-desktop-portal-hyprland];
   services.upower.enable = true;
   services.gvfs.enable = true;
 
-nixpkgs.config.permittedInsecurePackages = [
-      "ventoy-1.1.10"
+  nixpkgs.config.permittedInsecurePackages = [
       ]; 
 
  fonts.packages = with pkgs; [
 	noto-fonts
 	nerd-fonts.jetbrains-mono
 	ubuntu-classic
-];
+  ];
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "25.11"; # DO NOT EDIT
 
 }
