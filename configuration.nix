@@ -1,5 +1,3 @@
-# Edit this configuration file to define what should be installed on your system.  Help is available in the configuration.nix(5) man page 
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, ... }:
 
@@ -9,10 +7,10 @@
       ./hardware-configuration.nix
     ];
 
-home-manager.users.ven = import ./home.nix;
-home-manager.useGlobalPkgs = true;
-home-manager.useUserPackages = true;
-home-manager.backupFileExtension = "backup";
+ home-manager.users.ven = import ./home.nix;
+ home-manager.useGlobalPkgs = true;
+ home-manager.useUserPackages = true;
+ home-manager.backupFileExtension = "backup";
 
  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -35,11 +33,11 @@ home-manager.backupFileExtension = "backup";
   nix.settings.auto-optimise-store = true;
 
   # Garbage collection
- nix.gc = {
-  automatic = true;
-  dates = "weekly";
-  options = "--delete-older-than 7d";
- };
+  nix.gc = {
+   automatic = true;
+   dates = "weekly";
+   options = "--delete-older-than 7d";
+  };
 
   # Plymouth/boot animation
   boot.plymouth = {
@@ -76,7 +74,7 @@ home-manager.backupFileExtension = "backup";
     "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
     "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
   ];
-};
+ };
 
   networking.hostName = "ven-nixos"; # Define your hostname.
 
@@ -87,13 +85,13 @@ home-manager.backupFileExtension = "backup";
   hardware.bluetooth = {
   enable = true;
   powerOnBoot = true;
-}; 
+  }; 
   services.blueman.enable = true;
 
-# tailscale
+  # tailscale
   services.tailscale = {
 	enable = true;
-};
+  };
   environment.etc. "xdg/autostart/kded6.desktop".source = "/dev/null";
   environment.pathsToLink = [ "/share/gsettings-schemas" "/share/glib-2.0" ];
 
@@ -121,14 +119,14 @@ home-manager.backupFileExtension = "backup";
     variant = "gla";
   };
 
-# hyprland
+  # hyprland
 	programs.hyprland = {
 	enable = true;
 	xwayland.enable = true;
   };
 
-#GPU + Vulkan 
-hardware.graphics = {
+  #GPU + Vulkan 
+  hardware.graphics = {
 	enable = true;
 	extraPackages = with pkgs ; [
 		intel-media-driver
@@ -168,7 +166,7 @@ hardware.graphics = {
   programs.appimage = {
   enable = true;
   binfmt = true;
-};
+ };
 
   # List packages installed in system profile. To search, run:
   # pks
@@ -227,6 +225,7 @@ hardware.graphics = {
   kitty
   ];
 
+  # Flatpak Packages
   services.flatpak = {
 	enable = true;
 	packages = [
