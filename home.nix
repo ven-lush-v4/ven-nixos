@@ -1,8 +1,5 @@
 { config, pkgs, ... }: {
 
-
-
-
  home.username = "ven";
  home.homeDirectory = "/home/ven";
  home.stateVersion = "25.11";
@@ -76,8 +73,14 @@
 programs.fish = {
 	enable = true;
 	interactiveShellInit = ''
-	 set -g fish_greeting "" 
+	 set -g fish_greeting ""
  '';
+	loginShellInit = ''
+	 if status is-login
+	and test (tty) = /dev/tty1
+	exec start-hyprland
+	end
+'';
 	plugins = [
     {
       name = "z";
@@ -101,11 +104,6 @@ programs.fish = {
     }
   ];
 
-loginShellInit = ''
-	if test (tty) = /dev/tty1
-	 exec start-hyprland
-	end
- '';	
 shellAliases = {
 nix-rebuild = "nh os switch /etc/nixos";
 nix-update = "nh os switch --update /etc/nixos";
@@ -149,16 +147,20 @@ gtk.gtk4.theme = null;
 qt = {
   enable = true;
   platformTheme.name = "gtk";
- # style = {
- #   name = "qt5ct";
- #   package = pkgs.catppuccin-qt5ct;
- # };
 };
 
 programs.home-manager.enable = true;
 
-# HYPRLAND
+
+ # HYPRLAND
 # wayland.windowManager.hyprland = {
 # 	enable = true;
-}
+#	plugins = with pkgs.hyprlandPlugins; [
+	# hyprspace - also broken \/
+	# borders-plus-plus - broken on hyprland 0.54.x as of 5/5 2026
+	# hyprgrass - son.
+	# hyprexpo - </3
+#	];
+# };
 
+}

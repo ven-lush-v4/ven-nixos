@@ -21,13 +21,12 @@
   memoryPercent = 50;
 };
 
- services.logind.settings.Login.HandleLidSwitch = "true";  
+  services.logind.settings.Login.HandleLidSwitch = "true";  
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
-  services.getty.autologinUser = "ven";
    
   # Nix Store
   nix.settings.auto-optimise-store = true;
@@ -50,10 +49,23 @@
   ];
 };
 
+#  services.displayManager.ly = {
+#	enable = true;
+#	settings = {
+#	 animation = "matrix";
+#	 vi_mode = false;
+#	 default_enviroment = "hyprland";
+#	};
+#  };
+
   boot.consoleLogLevel = 3;
   boot.initrd.verbose = false;
   boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
+  boot.initrd.systemd.enable = false;
 
+  services.getty.autologinUser = "ven"; 
+  
+ 
   # Use latest kernel.
   #boot.kernelPackages = pkgs.linuxPackages_latest; # base linux kernel
   boot.kernelPackages = pkgs.cachyosKernels."linuxPackages-cachyos-latest"; # cachyos kernel | wait for cached version before uncommenting
@@ -187,6 +199,8 @@
   gparted
   udisks2
   udiskie
+  flips
+  xdelta
   easyrpg-player
   popsicle
   system-config-printer

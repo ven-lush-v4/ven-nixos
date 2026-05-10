@@ -24,7 +24,7 @@
 	nix-index-database.nixosModules.nix-index
 	nix-flatpak.nixosModules.nix-flatpak
 	{ programs.nix-index-database.comma.enable = true; }	
-   { nixpkgs.overlays = [ nix-cachyos-kernel.overlays.default ]; }
+   { nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ]; }
 
 {
   environment.systemPackages = [
