@@ -18,8 +18,16 @@
   zramSwap = {
   enable = true;
   algorithm = "zstd";
-  memoryPercent = 50;
-};
+  memoryPercent = 100;
+ };
+
+  # swappiness
+  boot.kernel.sysctl = {
+  "vm.swappiness" = 50;
+ };
+  
+  # disable swap partition  
+  swapDevices = [];
 
   services.logind.settings.Login.HandleLidSwitch = "true";  
 
@@ -90,7 +98,6 @@
 
   networking.hostName = "ven-nixos"; # Define your hostname.
 
-
   # Enable networking
   networking.networkmanager.enable = true;
   
@@ -104,6 +111,7 @@
   services.tailscale = {
 	enable = true;
   };
+
   environment.etc. "xdg/autostart/kded6.desktop".source = "/dev/null";
   environment.pathsToLink = [ "/share/gsettings-schemas" "/share/glib-2.0" ];
 
@@ -171,7 +179,6 @@
     shell = pkgs.fish;
   };
 
-
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   # AppImage Support
@@ -213,6 +220,7 @@
   git
   gh
   fzf
+  power-profiles-daemon
   python3
   wget
   curl
@@ -237,6 +245,7 @@
   upower
   file-roller
   kitty
+  syncthingtray
   ];
 
   # Flatpak Packages

@@ -12,19 +12,14 @@
 
  home.sessionPath = [ "$HOME/.local/bin" ];
  fonts.fontconfig.enable = true;
-#  home.file.".local/share/icons/Material-Black-Blueberry-Numix" = {
-#   source = "${pkgs.material-black-colors}/share/icons/Material-Black-Blueberry-Numix";
-#   recursive = true;
-
-#  home.file.".local/share/fonts/DeterminationSansWebRegular-369X.ttf" = {
- #  source = ./DeterminationSansWebRegular-369X.ttf;
-# };
+  
+  services.syncthing.enable = true;
 
  programs.kitty = {
 	enable = true;
 	font = {
         name =  "Ubuntu Mono";
-	size = 13;
+	size = 12;
 	};
 	settings = {
 	scrollback_lines = 5000;
