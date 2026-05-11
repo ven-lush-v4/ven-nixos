@@ -1,4 +1,3 @@
-
 { config, pkgs, lib, ... }:
 
 {
@@ -23,9 +22,9 @@
 
   # swappiness
   boot.kernel.sysctl = {
-  "vm.swappiness" = 50;
+  "vm.swappiness" = 10;
  };
-  
+
   # disable swap partition  
   swapDevices = [];
 
@@ -35,7 +34,7 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.configurationLimit = 10;
-   
+
   # Nix Store
   nix.settings.auto-optimise-store = true;
 
@@ -58,12 +57,12 @@
 };
 
 #  services.displayManager.ly = {
-#	enable = true;
-#	settings = {
-#	 animation = "matrix";
-#	 vi_mode = false;
-#	 default_enviroment = "hyprland";
-#	};
+#        enable = true;
+#        settings = {
+#         animation = "matrix";
+#         vi_mode = false;
+#         default_enviroment = "hyprland";
+#        };
 #  };
 
   boot.consoleLogLevel = 3;
@@ -72,8 +71,8 @@
   boot.initrd.systemd.enable = false;
 
   services.getty.autologinUser = "ven"; 
-  
- 
+
+
   # Use latest kernel.
   #boot.kernelPackages = pkgs.linuxPackages_latest; # base linux kernel
   boot.kernelPackages = pkgs.cachyosKernels."linuxPackages-cachyos-latest"; # cachyos kernel | wait for cached version before uncommenting
@@ -100,7 +99,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+
   hardware.bluetooth = {
   enable = true;
   powerOnBoot = true;
@@ -109,7 +108,7 @@
 
   # tailscale
   services.tailscale = {
-	enable = true;
+        enable = true;
   };
 
   environment.etc. "xdg/autostart/kded6.desktop".source = "/dev/null";
@@ -140,19 +139,19 @@
   };
 
   # hyprland
-	programs.hyprland = {
-	enable = true;
-	xwayland.enable = true;
+        programs.hyprland = {
+        enable = true;
+        xwayland.enable = true;
   };
 
   #GPU + Vulkan 
   hardware.graphics = {
-	enable = true;
-	extraPackages = with pkgs ; [
-		intel-media-driver
-		mesa
-		];
-	};
+        enable = true;
+        extraPackages = with pkgs ; [
+                intel-media-driver
+                mesa
+                ];
+        };
 
 
   xdg.portal.enable = true;
@@ -161,10 +160,10 @@
 
   security.rtkit.enable = true;
   services.pipewire = {
-	enable = true;
-	alsa.enable = true;
-	alsa.support32Bit = true;
-	pulse.enable = true;
+        enable = true;
+        alsa.enable = true;
+        alsa.support32Bit = true;
+        pulse.enable = true;
   };
 
   # Configure console keymap
@@ -206,10 +205,8 @@
   gparted
   udisks2
   udiskie
-  flips
   xdelta
   easyrpg-player
-  popsicle
   system-config-printer
   desktop-file-utils
   gtk3
@@ -238,7 +235,7 @@
   nh
   obs-studio
   evtest
-  pear-desktop
+  youtube-tui
   nwg-look
   adw-gtk3
   vlc
@@ -250,10 +247,9 @@
 
   # Flatpak Packages
   services.flatpak = {
-	enable = true;
-	packages = [
-		"net.waterfox.waterfox"
-		"io.github.flattool.Warehouse"
+        enable = true;
+        packages = [
+                "net.waterfox.waterfox"
        ];
    };
 
@@ -269,9 +265,9 @@
       ]; 
 
  fonts.packages = with pkgs; [
-	noto-fonts
-	nerd-fonts.jetbrains-mono
-	ubuntu-classic
+        noto-fonts
+        nerd-fonts.jetbrains-mono
+        ubuntu-classic
   ];
 
   system.stateVersion = "25.11"; # DO NOT EDIT
