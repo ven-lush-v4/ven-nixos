@@ -205,6 +205,7 @@
   gparted
   udisks2
   udiskie
+  exfatprogs
   xdelta
   easyrpg-player
   system-config-printer
@@ -250,6 +251,7 @@
         enable = true;
         packages = [
                 "net.waterfox.waterfox"
+		"org.freedownloadmanager.Manager"
        ];
    };
 
