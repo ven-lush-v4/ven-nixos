@@ -19,7 +19,7 @@
 	enable = true;
 	font = {
         name =  "Ubuntu Mono";
-	size = 12;
+	size = 13;
 	};
 	settings = {
 	scrollback_lines = 5000;
@@ -114,6 +114,7 @@ githypr = "sudo lazygit -p ~/.config/hypr";
 gittalia = "sudo lazygit -p ~/.config/noctalia";
 adb-phone = "adb connect ven-phone:5555";
 scrcpy = "scrcpy --max-size 1080 --window-width 540 --window-height 1200";
+qbitorrent = "qbittorrent -d && proton-vpn -d";
 	};
 };
 
