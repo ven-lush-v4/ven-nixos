@@ -13,9 +13,11 @@
   inputs.helium = {
 	url = "github:AlvaroParker/helium-nix";
   inputs.nixpkgs.follows = "nixpkgs";
-};
+  };
+  inputs.ytm-player.url = "github:peternaame-boop/ytm-player";
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, nix-flatpak,  ... }: {
+
+  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak,  ... }: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -23,8 +25,8 @@
 	home-manager.nixosModules.default
 	nix-index-database.nixosModules.nix-index
 	nix-flatpak.nixosModules.nix-flatpak
-	{ programs.nix-index-database.comma.enable = true; }	
-   { nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ]; }
+      { programs.nix-index-database.comma.enable = true; }	
+    {  nixpkgs.overlays = [ nix-cachyos-kernel.overlays.pinned ytm-player.overlays.default ]; }
 
 {
   environment.systemPackages = [

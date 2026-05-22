@@ -117,7 +117,7 @@
     PasswordAuthentication = true; # or false if you use keys
     PermitRootLogin = "no";
   };
-};
+ };
 
   # printing
   services.printing = {
@@ -210,7 +210,7 @@
     packages = with pkgs; [];
     shell = pkgs.fish;
   };
-
+  nix.settings.trusted-users = [ "root" "ven" ];
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   # AppImage Support
@@ -219,8 +219,7 @@
   binfmt = true;
  };
 
-  # List packages installed in system profile. To search, run:
-  # pks
+  # Packages
   environment.systemPackages = with pkgs; [
   helix
   # add languages below:
@@ -232,7 +231,6 @@
   scrcpy
   lazygit
   hyprshot
-  tailscale
   trayscale
   blueman
   gparted
@@ -257,7 +255,9 @@
   python3
   curl
   microfetch
-  cmatrix  
+  cmatrix
+  tldr
+  rmpc  
   noctalia-shell
   vesktop
   gimp
@@ -275,9 +275,12 @@
   adw-gtk3
   vlc
   upower
+  navi
+  heimdall
   file-roller
   kitty
   syncthingtray
+  (ytm-player.overrideAttrs { doCheck = false; })
   ];
 
   # Flatpak Packages
@@ -286,6 +289,7 @@
         packages = [
                 "net.waterfox.waterfox"
 		"org.freedownloadmanager.Manager"
+		"me.timschneeberger.GalaxyBudsClient"
        ];
    };
 
