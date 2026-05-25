@@ -106,6 +106,7 @@
   }; 
   services.blueman.enable = true;
 
+
   # tailscale
   services.tailscale = {
         enable = true;
@@ -219,7 +220,7 @@
   binfmt = true;
  };
 
-  # Packages
+  # Packages - pks
   environment.systemPackages = with pkgs; [
   helix
   # add languages below:
@@ -245,6 +246,8 @@
   desktop-file-utils
   gtk3
   glib
+  bitwarden-desktop
+  obsidian
   libsForQt5.qt5ct
   qt6Packages.qt6ct
   btop
@@ -259,16 +262,17 @@
   tldr
   rmpc  
   noctalia-shell
-  vesktop
+  dorion
+  hyprviz
   gimp
   kdePackages.kdenlive
   qbittorrent
   nicotine-plus
-  libreoffice
   nemo
   proton-vpn
   protonmail-desktop
   nh
+  jq
   obs-studio
   youtube-tui
   nwg-look
@@ -290,6 +294,11 @@
                 "net.waterfox.waterfox"
 		"org.freedownloadmanager.Manager"
 		"me.timschneeberger.GalaxyBudsClient"
+		"org.onlyoffice.desktopeditors"
+		"dev.vencord.Vesktop"
+		"io.itch.itch"
+		"com.heroicgameslauncher.hgl"
+		"hu.kramo.Cartridges"
        ];
    };
 
@@ -314,7 +323,7 @@
   programs.dconf.enable = true;
   services.upower.enable = true;
   services.gvfs.enable = true;
-  services.power-profiles-daemon.enable = true;
+  services.tuned.enable = true;
 
   nixpkgs.config.permittedInsecurePackages = [
       ]; 
