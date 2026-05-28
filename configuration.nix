@@ -267,6 +267,9 @@
     helix
     nil                          # nix lsp
     vscode-langservers-extracted # html/css/json lsp
+    lua-language-server
+    hyprls
+
 
     # --- terminal & shell utils ---
     btop
@@ -321,7 +324,6 @@
     proton-vpn
     protonmail-desktop
     localsend
-    dorion
     easyrpg-player
 
     # --- hyprland utils ---
