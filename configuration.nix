@@ -260,7 +260,7 @@
   # ============================================================
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [];
+  nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
 
   environment.systemPackages = with pkgs; [
     # --- editors & lsp ---
@@ -286,6 +286,7 @@
     gh
     python3
     nh
+    ventoy
 
     # --- desktop & theming ---
     noctalia-shell
