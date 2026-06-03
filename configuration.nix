@@ -10,14 +10,17 @@
 
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
-    auto-optimise-store = true;
+    auto-optimise-store = false;
     trusted-users = [ "root" "ven" ];
+    max-jobs = 1;
+    cores = 1;
     substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
       "https://hyprland.cachix.org"
       "https://attic.xuyh0120.win/lantian"
       "https://cache.garnix.io"
+      "https://noctalia.cachix.org"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -25,11 +28,12 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "noctalia.cachix.org-1:pC0R47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
 
   nix.gc = {
-    automatic = true;
+    automatic = false;
     dates = "weekly";
     options = "--delete-older-than 7d";
   };
@@ -123,7 +127,8 @@
 
   networking.hostName = "ven-nixos";
   networking.networkmanager.enable = true;
-
+  networking.firewall.trustedInterfaces = ["proton0"];
+  
   services.tailscale.enable = true;
 
   services.openssh = {
@@ -251,7 +256,7 @@
     gvfs.enable = true;
     tuned.enable = true;
     logind.settings.Login.HandleLidSwitch = "true";
-    syncthing.enable = true;
+    syncthing.enable = false;
   };
 
 
@@ -260,7 +265,7 @@
   # ============================================================
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
+  nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" "electron-39.8.10" ];
 
   environment.systemPackages = with pkgs; [
     # --- editors & lsp ---
@@ -287,6 +292,8 @@
     python3
     nh
     ventoy
+    yazi
+    kitty
 
     # --- desktop & theming ---
     noctalia-shell
@@ -297,7 +304,6 @@
     libsForQt5.qt5ct
     qt6Packages.qt6ct
     desktop-file-utils
-    kitty
 
     # --- files & drives ---
     nemo
@@ -318,7 +324,6 @@
     youtube-tui
 
     # --- apps ---
-    bitwarden-desktop
     obsidian
     qbittorrent
     nicotine-plus
@@ -360,6 +365,14 @@
   };
 
 
+  #- - - Claude App Ovverides - - -
+  #claude-desktop.override = { 
+  # ydotool = pkgs.ydotool; 
+  # grim = pkgs.grim;
+  # jq = pkgs.jq;
+  # hyprland = pkgs.hyprland; 
+  # socat = pkgs.socat;
+  #};
   # ============================================================
   # FONTS
   # ============================================================

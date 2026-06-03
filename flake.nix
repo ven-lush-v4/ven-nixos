@@ -7,12 +7,16 @@
   # ============================================================
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    noctalia = {
+	url = "github:noctalia-dev/noctalia-shell/v5";
+	};
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -38,7 +42,7 @@
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, ... }: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, ... }: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -59,7 +63,7 @@
         {
           environment.systemPackages = [
             helium.packages.x86_64-linux.default
-	#    claude-desktop.packages.x86_64-linux.default
+	    claude-desktop.packages.x86_64-linux.default
           ];
         }
 

@@ -127,9 +127,10 @@
     shellAliases = {
       # nix
       nix-rebuild    = "nh os switch /etc/nixos";
-      nix-update     = "nh os switch --update /etc/nixos";
+      nix-update     = "nh os boot --update /etc/nixos";
       nix-test       = "nh os test /etc/nixos";
       nix-generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
+      nix-clean = "sudo nix-collect-garbage -d && nh clean all && nix-store --optimise";
 
       # quick config editing
       nixconf   = "sudo nano /etc/nixos/configuration.nix";
