@@ -1,6 +1,12 @@
 { config, pkgs, ... }: {
 
 
+  home.file = {
+    ".config/hypr".source = ./hypr;
+  };
+  
+
+
   # ============================================================
   # HOME
   # ============================================================
@@ -135,16 +141,15 @@
       # quick config editing
       nixconf   = "sudo nano /etc/nixos/configuration.nix";
       homeconf  = "sudo nano /etc/nixos/home.nix";
-      hyprconf  = "sudo nano ~/.config/hypr/hyprland.conf";
+      hyprconf  = "sudo nano /etc/nixos/hypr/hyprland.conf";
       flakeconf = "sudo nano /etc/nixos/flake.nix";
       hxnix = "hx /etc/nixos/configuration.nix";
       hxflake = "hx /etc/nixos/flake.nix";
       hxhome = "hx /etc/nixos/home.nix";
-      hxhypr = "hx ~/.config/hypr/hyprland.conf";
+      hxhypr = "hx /etc/nixos/hypr/hyprland.conf";
 
       # git
       gitnix   = "sudo lazygit -p /etc/nixos";
-      githypr  = "sudo lazygit -p ~/.config/hypr";
 
       # misc
       fetch       = "microfetch";
