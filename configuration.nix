@@ -28,7 +28,7 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
       "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      "noctalia.cachix.org-1:pC0R47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
 
@@ -65,6 +65,14 @@
   boot.consoleLogLevel = 3;
   boot.initrd.verbose = false;
   boot.initrd.systemd.enable = false;
+  
+
+  fileSystems."/mnt/torrent-usb" = {
+  device = "/dev/disk/by-label/torrent-usb";
+  fsType = "exfat";
+  options = [ "nofail" "x-systemd.automount" "uid=1000" "gid=100" ];
+  };  
+  
 
   boot.plymouth = {
     enable = true;
@@ -127,7 +135,9 @@
 
   networking.hostName = "ven-nixos";
   networking.networkmanager.enable = true;
-  networking.firewall.trustedInterfaces = ["proton0"];
+  networking.firewall.trustedInterfaces = ["proton0" "pvpnksintrf0"];
+  networking.firewall.allowedTCPPorts = [22 5555];
+  networking.nameservers = ["1.1.1.1" "1.0.0.1"];
   
   services.tailscale.enable = true;
 
@@ -255,7 +265,7 @@
     upower.enable = true;
     gvfs.enable = true;
     tuned.enable = true;
-    logind.settings.Login.HandleLidSwitch = "true";
+    logind.settings.Login.HandleLidSwitch = "ignore";
     syncthing.enable = false;
   };
 
@@ -296,7 +306,7 @@
     kitty
 
     # --- desktop & theming ---
-    noctalia-shell
+    noctalia-shell #v4
     nwg-look
     adw-gtk3
     gtk3
@@ -336,6 +346,7 @@
     hyprshot
     hyprviz
     trayscale
+    satty
 
     # --- hardware & connectivity ---
     android-tools
@@ -343,6 +354,8 @@
     heimdall
     upower
     power-profiles-daemon
+    mission-center
+    rquickshare
 
     # --- print/scan ---
     system-config-printer

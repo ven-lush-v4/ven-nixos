@@ -41,8 +41,8 @@
       name = "Gradient-Dark-Icons";
     };
     font = {
-      name = "Determination";
-      size = 10;
+      name = "Ubuntu Mono";
+      size = 12;
     };
     gtk4.theme = null;
   };
@@ -71,7 +71,7 @@
       confirm_os_window_close = 0;
     };
     extraConfig = ''
-      include themes/Noctalia.conf
+      include themes/noctalia.conf
     '';
   };
 
@@ -159,7 +159,7 @@
   # SERVICES
   # ============================================================
 
-  services.syncthing.enable = true;
+  services.syncthing.enable = false;
 
 
   # ============================================================

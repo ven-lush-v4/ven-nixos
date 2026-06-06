@@ -42,7 +42,7 @@
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, ... }: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, noctalia, ... }: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -63,7 +63,8 @@
         {
           environment.systemPackages = [
             helium.packages.x86_64-linux.default
-	    claude-desktop.packages.x86_64-linux.default
+	          claude-desktop.packages.x86_64-linux.default
+            noctalia.packages.x86_64-linux.default
           ];
         }
 
