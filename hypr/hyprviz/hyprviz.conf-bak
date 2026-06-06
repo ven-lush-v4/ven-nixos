@@ -1,0 +1,11 @@
+# hyprviz configuration (created automatically)
+
+general {
+    gaps_in = 3
+}
+
+decoration {
+    rounding = 5
+    border_part_of_window = false
+}
+windowrule = size 900 540, class:(kitty), floating:1
