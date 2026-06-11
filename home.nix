@@ -5,7 +5,7 @@
     ".config/hypr".source = ./hypr;
   };
   
-
+  
 
   # ============================================================
   # HOME
@@ -14,7 +14,7 @@
   home = {
     username = "ven";
     homeDirectory = "/home/ven";
-    stateVersion = "25.11";
+    stateVersion = "26.05";
     sessionPath = [ "$HOME/.local/bin" ];
 
     packages = with pkgs; [
@@ -62,6 +62,13 @@
   # ============================================================
   # PROGRAMS
   # ============================================================
+
+
+  programs.gzml-shell = {
+    enable = false;
+    package = pkgs.gzml-shell;
+  };
+
 
   programs.home-manager.enable = true;
 
@@ -118,7 +125,7 @@
     loginShellInit = ''
       if status is-login
       and test (tty) = /dev/tty1
-        exec start-hyprland
+        exec sway
       end
     '';
 
@@ -133,7 +140,7 @@
     shellAliases = {
       # nix
       nix-rebuild    = "nh os switch /etc/nixos";
-      nix-update     = "nh os boot --update /etc/nixos";
+      nix-update     = "nh os boot --update /etc/nixos && shutdown now ";
       nix-test       = "nh os test /etc/nixos";
       nix-generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       nix-clean = "sudo nix-collect-garbage -d && nh clean all && nix-store --optimise";
@@ -142,14 +149,17 @@
       nixconf   = "sudo nano /etc/nixos/configuration.nix";
       homeconf  = "sudo nano /etc/nixos/home.nix";
       hyprconf  = "sudo nano /etc/nixos/hypr/hyprland.conf";
+      swayconf = "sudo nano /etc/nixos/sway/config";
       flakeconf = "sudo nano /etc/nixos/flake.nix";
       hxnix = "hx /etc/nixos/configuration.nix";
       hxflake = "hx /etc/nixos/flake.nix";
       hxhome = "hx /etc/nixos/home.nix";
       hxhypr = "hx /etc/nixos/hypr/hyprland.conf";
+      hxsway = "hx /etc/nixos/sway/config";
 
       # git
       gitnix   = "sudo lazygit -p /etc/nixos";
+      gitaddnix = "git -C /etc/nixos add .";
 
       # misc
       fetch       = "microfetch";
@@ -180,5 +190,14 @@
   #     # hyprexpo        - </3
   #   ];
   # };
+  #
+  #
+  wayland.windowManager.sway = {
+  enable = true;
+  package = pkgs.swayfx;
+  checkConfig = false;
+  config.bars = [];
+  extraConfig = builtins.readFile ./sway/config;
+ };
 
 }

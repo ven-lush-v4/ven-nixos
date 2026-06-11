@@ -3,6 +3,7 @@
 # for use with swayfx + gzml-shell
 # ─────────────────────────────────────────────────────────────────────────────
 
+source = ~/.config/sway/noctalia
 
 # ─────────────────────────────────────────────────────────────────────────────
 # VARIABLES
@@ -11,7 +12,7 @@
 set $mod      Mod4
 set $terminal kitty
 set $files    nemo
-set $ipc      noctalia msg 
+set $ipc      qs -p ~/.config/quickshell-gzml ipc call
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -27,7 +28,7 @@ output * {
 # AUTOSTART
 # ─────────────────────────────────────────────────────────────────────────────
 
-exec noctalia
+exec gzml-shell
 exec pkill kded6
 exec sleep 3 && trayscale --window-type=utility --hide-window
 exec udiskie --no-tray
@@ -53,14 +54,17 @@ exec dbus-update-activation-environment --systemd \
 # borders (2px, matching hyprland)
 default_border          pixel 2
 default_floating_border pixel 2
-
+bar {
+ id bar-1
+ mode hide
+}
 
 # colors — inlined from colors.conf
 # active border uses first color of hyprland gradient (#33ccff)
 # class                  border    bg        text      indicator child_border
-# client.focused           #33ccff   #33ccff   #e2e2e2   #00ff99   #33ccff
-# client.unfocused         #595959   #131313   #e2e2e2   #595959   #595959
-# client.focused_inactive  #595959   #1f1f1f   #e2e2e2   #595959   #595959
+client.focused           #33ccff   #33ccff   #e2e2e2   #00ff99   #33ccff
+client.unfocused         #595959   #131313   #e2e2e2   #595959   #595959
+client.focused_inactive  #595959   #1f1f1f   #e2e2e2   #595959   #595959
 
 # gaps
 gaps inner 4
@@ -118,10 +122,10 @@ for_window [app_id="scrcpy-wrapped"] {
     resize set 313 675
 }
 
-# for_window [app_id="kitty-microfetch"] {
-    # floating enable
-    # resize set 900 275
-# }
+for_window [app_id="kitty-microfetch"] {
+    floating enable
+    resize set 900 275
+}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -138,23 +142,22 @@ bindsym $mod+c       exec claude-desktop
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# KEYBINDINGS — NOCTALIA SHELL IPC
+# KEYBINDINGS — GZML SHELL IPC
 # ─────────────────────────────────────────────────────────────────────────────
 
-bindsym $mod+space           exec $ipc panel-toggle launcher
-bindsym $mod+slash           exec $ipc settings-toggle
-bindsym $mod+Escape          exec $ipc panel-toggle session
-bindsym $mod+Print           exec $ipc screenshot-region
+bindsym $mod+space           exec $ipc launcher toggle
+bindsym $mod+slash           exec $ipc settings toggle
+bindsym $mod+Escape          exec $ipc sessionMenu toggle
+
+# screenshot — gzml has no built-in ipc for this, using grimshot instead
+bindsym $mod+Print           exec grimshot area
 
 # control center: fires on Super key release (matches hyprland bindr behavior)
-bindsym --release Super_L    exec $ipc panel-toggle control-center
+bindsym --release Super_L    exec $ipc controlCenter toggle
 
-bindsym Control+Shift+Escape exec $ipc panel-toggle control-center system
-bindsym $mod+n               exec $ipc panel-toggle control-center notifications
-bindsym $mod+Shift+v         exec $ipc panel-toggle clipboard
-
-# window switcher (alt+tab — new in v5)
-bindsym Alt+Tab              exec $ipc window-switcher
+bindsym Control+Shift+Escape exec $ipc settings openTab system
+bindsym $mod+n               exec $ipc notifications toggleHistory
+bindsym $mod+Shift+v         exec $ipc launcher clipboard
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -162,7 +165,7 @@ bindsym Alt+Tab              exec $ipc window-switcher
 # ─────────────────────────────────────────────────────────────────────────────
 
 bindsym $mod+q       kill
-bindsym $mod+t exec sh -c 'swaymsg floating toggle && swaymsg "[focused floating]" resize set 300 250'
+bindsym $mod+t exec sh -c 'swaymsg floating toggle && swaymsg "[focused floating]" resize set 900 500'
 bindsym $mod+v       layout toggle split
 bindsym $mod+f       fullscreen
 # sway has no "maximize with gaps" mode — both binds just toggle fullscreen

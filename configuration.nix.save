@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-
+q
 {
   imports = [ ./hardware-configuration.nix ];
 
@@ -155,18 +155,13 @@
   # ============================================================
 
   programs.hyprland = {
-    enable = false;
-    xwayland.enable = true;
-  };
-
-  programs.sway = {
     enable = true;
-    wrapperFeatures.gtk = true;
+    xwayland.enable = true;
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
   };
 
   # suppress kded6 autostart (not needed on hyprland)
@@ -274,6 +269,7 @@
     syncthing.enable = false;
   };
 
+
   # ============================================================
   # PACKAGES
   # ============================================================
@@ -288,6 +284,7 @@
     vscode-langservers-extracted # html/css/json lsp
     lua-language-server
     hyprls
+
 
     # --- terminal & shell utils ---
     btop
@@ -304,18 +301,14 @@
     gh
     python3
     nh
-    nixmate
     ventoy
     yazi
     kitty
     systemctl-tui
 
     # --- desktop & theming ---
-    swayfx
-    autotiling
     noctalia-shell #v4
     nwg-look
-    noctalia-qs
     adw-gtk3
     gtk3
     glib
@@ -359,9 +352,11 @@
     # --- hardware & connectivity ---
     android-tools
     scrcpy
+    heimdall
     upower
     power-profiles-daemon
     mission-center
+    rquickshare
 
     # --- print/scan ---
     system-config-printer

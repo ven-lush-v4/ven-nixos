@@ -155,18 +155,13 @@
   # ============================================================
 
   programs.hyprland = {
-    enable = false;
-    xwayland.enable = true;
-  };
-
-  programs.sway = {
     enable = true;
-    wrapperFeatures.gtk = true;
+    xwayland.enable = true;
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
   };
 
   # suppress kded6 autostart (not needed on hyprland)
@@ -255,6 +250,7 @@
   # ============================================================
 
   programs = {
+    swayfx.e
     steam.enable = true;
     fish.enable = true;
     kdeconnect.enable = true;
@@ -312,10 +308,8 @@
 
     # --- desktop & theming ---
     swayfx
-    autotiling
     noctalia-shell #v4
     nwg-look
-    noctalia-qs
     adw-gtk3
     gtk3
     glib
