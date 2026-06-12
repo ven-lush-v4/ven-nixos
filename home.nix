@@ -55,7 +55,7 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk";
+    platformTheme.name = "qt6ct";
   };
 
 

@@ -65,7 +65,15 @@
   boot.consoleLogLevel = 3;
   boot.initrd.verbose = false;
   boot.initrd.systemd.enable = false;
-  
+  boot.kernel.sysctl = {
+  "vm.vfs_cache_pressure" = 50;  # default 100, keeps file cache longer
+  "vm.dirty_ratio" = 10;
+  "vm.dirty_background_ratio" = 5;
+  };
+  powerManagement.cpuFreqGovernor = "schedutil";
+  services.udev.extraRules = ''
+  ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/scheduler}="mq-deadline"
+  '';
 
   fileSystems."/mnt/torrent-usb" = {
   device = "/dev/disk/by-label/torrent-usb";
@@ -312,7 +320,6 @@
 
     # --- desktop & theming ---
     swayfx
-    autotiling
     noctalia-shell #v4
     nwg-look
     noctalia-qs
@@ -350,10 +357,8 @@
     localsend
     easyrpg-player
 
-    # --- hyprland utils ---
-    hyprshot
-    hyprviz
-    trayscale
+    # --- sway utils ---
+    autotiling
     satty
 
     # --- hardware & connectivity ---
