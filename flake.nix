@@ -9,6 +9,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
+    lix-module = {
+      url = "https://git.lix.systems/lix-project/nixos-module/archive/main.tar.gz";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -48,7 +53,7 @@
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, noctalia, gzml-shell,  ... }: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, noctalia, gzml-shell, lix-module,   ... }: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -56,6 +61,7 @@
         home-manager.nixosModules.default
         nix-index-database.nixosModules.nix-index
         nix-flatpak.nixosModules.nix-flatpak
+        lix-module.nixosModules.lixFromNixpkgs
         { home-manager.users.ven.imports = [ gzml-shell.homeModules.default ]; }
         # overlays
         {

@@ -62,6 +62,8 @@ default_floating_border pixel 2
 # client.unfocused         #595959   #131313   #e2e2e2   #595959   #595959
 # client.focused_inactive  #595959   #1f1f1f   #e2e2e2   #595959   #595959
 
+include ~/.config/sway/noctalia
+
 # gaps
 gaps inner 4
 gaps outer 2
@@ -162,7 +164,7 @@ bindsym Alt+Tab              exec $ipc window-switcher
 # ─────────────────────────────────────────────────────────────────────────────
 
 bindsym $mod+q       kill
-bindsym $mod+t exec sh -c 'swaymsg floating toggle && swaymsg "[focused floating]" resize set 300 250'
+bindsym $mod+t exec sh -c 'swaymsg floating toggle && swaymsg "[focused floating]" resize set 700 450'
 bindsym $mod+v       layout toggle split
 bindsym $mod+f       fullscreen
 # sway has no "maximize with gaps" mode — both binds just toggle fullscreen
