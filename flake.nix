@@ -20,7 +20,7 @@
     };
 
     noctalia = {
-	url = "github:noctalia-dev/noctalia-shell/65c4bf42f4cc78261744a09973def2599bebca28";
+	url = "github:noctalia-dev/noctalia-shell/e3d292656c340e5d766e11c3e4be922a39f7ac51";
 	};
 
 

@@ -75,6 +75,20 @@
   ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/scheduler}="mq-deadline"
   '';
 
+  boot.blacklistedKernelModules = [
+  "joydev"             # joystick - xbox controller on wayland doesn't use this
+  "mousedev"           # legacy mouse interface - wayland uses evdev
+  "mac_hid"            # mac HID compat layer - you're not on a mac lol
+  "serio_raw"          # raw serio interface - nothing needs it
+  "8250_dw"            # designware serial UART - not needed
+  "snd_seq_dummy"      # dummy midi sequencer
+  "dmi_sysfs"          # dmi info via sysfs - not critical
+  "intel_powerclamp"   # intel cpu power clamping - earlyoom handles pressure instead
+  "tiny_power_button"  # alternative power button handler - redundant
+  "ahci"
+  "libahci"
+];
+
   fileSystems."/mnt/torrent-usb" = {
   device = "/dev/disk/by-label/torrent-usb";
   fsType = "exfat";
@@ -360,6 +374,7 @@
     # --- sway utils ---
     autotiling
     satty
+    trayscale
 
     # --- hardware & connectivity ---
     android-tools

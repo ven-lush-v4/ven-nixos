@@ -32,7 +32,7 @@ exec pkill kded6
 exec sleep 3 && trayscale --window-type=utility --hide-window
 exec udiskie --no-tray
 exec /run/current-system/sw/bin/kdeconnect-indicator
-exec autotiling
+exec autotiling always-on
 
 # pass env vars to dbus/systemd session
 exec dbus-update-activation-environment --systemd \
@@ -149,7 +149,8 @@ bindsym $mod+Escape          exec $ipc panel-toggle session
 bindsym $mod+Print           exec $ipc screenshot-region
 
 # control center: fires on Super key release (matches hyprland bindr behavior)
-bindsym --release Super_L    exec $ipc panel-toggle control-center
+#bindsym --release Super_L    exec $ipc panel-toggle control-center
+bindsym $mod+z exec $ipc panel-toggle control-center
 
 bindsym Control+Shift+Escape exec $ipc panel-toggle control-center system
 bindsym $mod+n               exec $ipc panel-toggle control-center notifications
@@ -164,7 +165,7 @@ bindsym Alt+Tab              exec $ipc window-switcher
 # ─────────────────────────────────────────────────────────────────────────────
 
 bindsym $mod+q       kill
-bindsym $mod+t exec sh -c 'swaymsg floating toggle && swaymsg "[focused floating]" resize set 700 450'
+bindsym $mod+t exec swaymsg 'floating toggle; resize set 700 450'
 bindsym $mod+v       layout toggle split
 bindsym $mod+f       fullscreen
 # sway has no "maximize with gaps" mode — both binds just toggle fullscreen
