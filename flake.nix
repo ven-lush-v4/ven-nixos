@@ -24,10 +24,10 @@
 	};
 
 
-     gzml-shell = {
-      url = "github:zero-j89/gzml_shell";
-     inputs.nixpkgs.follows = "nixpkgs";
-     };
+     # gzml-shell = {
+      # url = "github:zero-j89/gzml_shell";
+     # inputs.nixpkgs.follows = "nixpkgs";
+     # };
     
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -53,7 +53,7 @@
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, noctalia, gzml-shell, lix-module,   ... }: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, noctalia, lix-module,   ... }: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -62,7 +62,7 @@
         nix-index-database.nixosModules.nix-index
         nix-flatpak.nixosModules.nix-flatpak
         lix-module.nixosModules.lixFromNixpkgs
-        { home-manager.users.ven.imports = [ gzml-shell.homeModules.default ]; }
+        # { home-manager.users.ven.imports = [ gzml-shell.homeModules.default ]; }
         # overlays
         {
           nixpkgs.overlays = [

@@ -62,14 +62,6 @@
   # ============================================================
   # PROGRAMS
   # ============================================================
-
-
-  programs.gzml-shell = {
-    enable = false;
-    package = pkgs.gzml-shell;
-  };
-
-
   programs.home-manager.enable = true;
 
   programs.kitty = {

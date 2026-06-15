@@ -420,6 +420,8 @@
     noto-fonts
     nerd-fonts.jetbrains-mono
     ubuntu-classic
+    maple-mono.NF
+    nerd-fonts.space-mono
   ];
 
 
