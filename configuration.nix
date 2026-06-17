@@ -1,7 +1,12 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix ];
+  imports = [ ./hardware-configuration.nix
+    ./modules/kernel.nix
+    ./modules/boot.nix
+    ./modules/packages.nix
+    ./modules/caches.nix
+     ];
 
 
   # ============================================================
@@ -56,9 +61,9 @@
     efi.canTouchEfiVariables = true;
   };
 
-  # cachyos kernel - swap comment to use base linux kernel instead
-  boot.kernelPackages = pkgs.cachyosKernels."linuxPackages-cachyos-latest";
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # kernel - cachyos(1) or zen(2)
+  #boot.kernelPackages = pkgs.cachyosKernels."linuxPackages-cachyos-latest";
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
   boot.kernel.sysctl."vm.swappiness" = 10;
@@ -346,6 +351,7 @@
 
     # --- files & drives ---
     nemo
+    tree
     file-roller
     gparted
     udisks2

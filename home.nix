@@ -67,8 +67,8 @@
   programs.kitty = {
     enable = true;
     font = {
-      name = "Ubuntu Mono";
-      size = 13;
+      name = "Maple Mono NF";
+      size = 12;
     };
     settings = {
       scrollback_lines = 5000;
