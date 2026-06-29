@@ -20,15 +20,10 @@
     };
 
     noctalia = {
-	url = "github:noctalia-dev/noctalia-shell/e3d292656c340e5d766e11c3e4be922a39f7ac51";
+	url = "github:noctalia-dev/noctalia-shell/59f71f7f1b80424dbc2a95bc61185b7ad1bf5577";
 	};
 
-
-     # gzml-shell = {
-      # url = "github:zero-j89/gzml_shell";
-     # inputs.nixpkgs.follows = "nixpkgs";
-     # };
-    
+   
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,16 +31,18 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+   # nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     helium = {
       url = "github:AlvaroParker/helium-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ytm-player.url = "github:peternaame-boop/ytm-player";
+#    ytm-player.url = "github:peternaame-boop/ytm-player";
 
-    claude-desktop.url = "github:patrickjaja/claude-desktop-bin";
+#    claude-desktop.url = "github:patrickjaja/claude-desktop-bin";
+
+#    concord.url = "github:chojs23/concord";
   };
 
 
@@ -53,7 +50,7 @@
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, nix-cachyos-kernel, helium, ytm-player, nix-flatpak, claude-desktop, noctalia, lix-module,   ... }: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, helium, nix-flatpak, noctalia, lix-module,  ... }: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
@@ -62,13 +59,11 @@
         nix-index-database.nixosModules.nix-index
         nix-flatpak.nixosModules.nix-flatpak
         lix-module.nixosModules.lixFromNixpkgs
-        # { home-manager.users.ven.imports = [ gzml-shell.homeModules.default ]; }
         # overlays
         {
           nixpkgs.overlays = [
-            nix-cachyos-kernel.overlays.pinned
-            ytm-player.overlays.default
-            # gzml-shell.overlays.default
+           # nix-cachyos-kernel.overlays.pinned
+ #           ytm-player.overlays.default
           ];
         }
 
@@ -76,8 +71,9 @@
         {
           environment.systemPackages = [
             helium.packages.x86_64-linux.default
-	          claude-desktop.packages.x86_64-linux.default
+#	    claude-desktop.packages.x86_64-linux.default
             noctalia.packages.x86_64-linux.default
+#            concord.packages.x86_64-linux.default
           ];
         }
 

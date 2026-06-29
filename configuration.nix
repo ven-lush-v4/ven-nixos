@@ -1,11 +1,13 @@
 { config, pkgs, lib, ... }:
 
 {
-  imports = [ ./hardware-configuration.nix
-    ./modules/kernel.nix
-    ./modules/boot.nix
-    ./modules/packages.nix
-    ./modules/caches.nix
+  imports = [ 
+     ./hardware-configuration.nix
+   # ./modules/kernel.nix
+   # ./modules/boot.nix
+   # ./modules/packages.nix
+   # ./modules/caches.nix
+   # ./modules/locale.nix
      ];
 
 
@@ -24,7 +26,7 @@
       "https://nix-community.cachix.org"
       "https://hyprland.cachix.org"
       "https://attic.xuyh0120.win/lantian"
-      "https://cache.garnix.io"
+      # "https://cache.garnix.io"
       "https://noctalia.cachix.org"
     ];
     trusted-public-keys = [
@@ -32,7 +34,7 @@
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
     ];
   };
@@ -181,11 +183,6 @@
   # DESKTOP / DISPLAY
   # ============================================================
 
-  programs.hyprland = {
-    enable = false;
-    xwayland.enable = true;
-  };
-
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -290,6 +287,16 @@
       enable = true;
       binfmt = true;
     };
+    nix-ld = {
+     enable = true;
+     libraries = with pkgs; [
+       zlib
+       stdenv.cc.cc
+       openssl
+       alsa-lib
+       libopus
+     ];  
+  };
   };
 
   services = {
@@ -318,6 +325,7 @@
 
     # --- terminal & shell utils ---
     btop
+    mpv
     fzf
     fd
     jq
@@ -365,11 +373,11 @@
     obs-studio
     kdePackages.kdenlive
     rmpc
-    (ytm-player.overrideAttrs { doCheck = false; })
+    #(ytm-player.overrideAttrs { doCheck = false; })
     youtube-tui
 
     # --- apps ---
-    obsidian
+    # obsidian
     qbittorrent
     nicotine-plus
     proton-vpn
@@ -409,15 +417,6 @@
     ];
   };
 
-
-  #- - - Claude App Ovverides - - -
-  #claude-desktop.override = { 
-  # ydotool = pkgs.ydotool; 
-  # grim = pkgs.grim;
-  # jq = pkgs.jq;
-  # hyprland = pkgs.hyprland; 
-  # socat = pkgs.socat;
-  #};
   # ============================================================
   # FONTS
   # ============================================================

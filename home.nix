@@ -2,7 +2,6 @@
 
 
   home.file = {
-    ".config/hypr".source = ./hypr;
   };
   
   
@@ -140,13 +139,11 @@
       # quick config editing
       nixconf   = "sudo nano /etc/nixos/configuration.nix";
       homeconf  = "sudo nano /etc/nixos/home.nix";
-      hyprconf  = "sudo nano /etc/nixos/hypr/hyprland.conf";
       swayconf = "sudo nano /etc/nixos/sway/config";
       flakeconf = "sudo nano /etc/nixos/flake.nix";
-      hxnix = "hx /etc/nixos/configuration.nix";
+      hxnix = "hx /etc/nixos/";
       hxflake = "hx /etc/nixos/flake.nix";
       hxhome = "hx /etc/nixos/home.nix";
-      hxhypr = "hx /etc/nixos/hypr/hyprland.conf";
       hxsway = "hx /etc/nixos/sway/config";
 
       # git
@@ -157,7 +154,6 @@
       fetch       = "microfetch";
       adb-phone   = "adb connect ven-phone:5555";
       scrcpy      = "scrcpy --max-size 1080 --window-width 540 --window-height 1200";
-      qbitorrent  = "qbittorrent -d && proton-vpn -d";
     };
   };
 
@@ -170,20 +166,10 @@
 
 
   # ============================================================
-  # HYPRLAND (home-manager managed - currently unused)
+  # SWAY{fx} (home-manager managed)
   # ============================================================
 
-  # wayland.windowManager.hyprland = {
-  #   enable = true;
-  #   plugins = with pkgs.hyprlandPlugins; [
-  #     # hyprspace       - broken
-  #     # borders-plus-plus - broken on hyprland 0.54.x as of 5/5/2026
-  #     # hyprgrass       - son.
-  #     # hyprexpo        - </3
-  #   ];
-  # };
-  #
-  #
+  
   wayland.windowManager.sway = {
   enable = true;
   package = pkgs.swayfx;

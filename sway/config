@@ -67,19 +67,19 @@ include ~/.config/sway/noctalia
 # gaps
 gaps inner 4
 gaps outer 2
-smart_gaps off
+smart_gaps on
 
 # ── swayfx effects ────────────────────────────────────────────────────────────
 corner_radius 5
 
-blur enable
+blur disable
 blur_passes  1
 blur_radius  4
 blur_xray    off
 
 # opacity: active = 0.95, inactive dimmed to ~0.60 (matches hyprland values)
-for_window [app_id=".*"] opacity 0.95
-default_dim_inactive 0.37
+#for_window [app_id=".*"] opacity 0.95
+#default_dim_inactive 0.37
 
 # shadows off (matches hyprland config)
 shadows disable
@@ -136,8 +136,10 @@ bindsym $mod+b       exec helium
 bindsym $mod+k       exec kdeconnect
 bindsym $mod+Shift+b exec flatpak run waterfox
 bindsym $mod+F12     exec kitty --class kitty-microfetch -e sh -c "microfetch; read -r"
-bindsym $mod+c       exec claude-desktop
-
+bindsym $mod+Shift+e   exec yazi
+bindsym $mod+Shift+g   exec lazygit -p /etc/nixos/
+bindsym $mod+Shift+h   exec hx /etc/nixos/
+bindsym $mod+Shift+r   exec kitty nh os switch /etc/nixos
 
 # ─────────────────────────────────────────────────────────────────────────────
 # KEYBINDINGS — NOCTALIA SHELL IPC
@@ -157,7 +159,7 @@ bindsym $mod+n               exec $ipc panel-toggle control-center notifications
 bindsym $mod+Shift+v         exec $ipc panel-toggle clipboard
 
 # window switcher (alt+tab — new in v5)
-bindsym Alt+Tab              exec $ipc window-switcher
+bindsym $mod+Tab              exec $ipc window-switcher
 
 
 # ─────────────────────────────────────────────────────────────────────────────
