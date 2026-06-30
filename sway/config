@@ -136,9 +136,9 @@ bindsym $mod+b       exec helium
 bindsym $mod+k       exec kdeconnect
 bindsym $mod+Shift+b exec flatpak run waterfox
 bindsym $mod+F12     exec kitty --class kitty-microfetch -e sh -c "microfetch; read -r"
-bindsym $mod+Shift+e   exec yazi
-bindsym $mod+Shift+g   exec lazygit -p /etc/nixos/
-bindsym $mod+Shift+h   exec hx /etc/nixos/
+bindsym $mod+Shift+e   exec kitty yazi
+bindsym $mod+Shift+g   exec kitty lazygit -p /etc/nixos/
+bindsym $mod+Shift+h   exec kitty hx /etc/nixos/
 bindsym $mod+Shift+r   exec kitty nh os switch /etc/nixos
 
 # ─────────────────────────────────────────────────────────────────────────────
