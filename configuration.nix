@@ -3,11 +3,11 @@
 {
   imports = [ 
      ./hardware-configuration.nix
-   # ./modules/kernel.nix
-   # ./modules/boot.nix
+     ./modules/kernel.nix
+     ./modules/boot.nix
    # ./modules/packages.nix
-   # ./modules/caches.nix
-   # ./modules/locale.nix
+     ./modules/caches.nix
+     ./modules/locale.nix
      ];
 
 
@@ -21,23 +21,7 @@
     trusted-users = [ "root" "ven" ];
     max-jobs = 1;
     cores = 1;
-    substituters = [
-      "https://cache.nixos.org"
-      "https://nix-community.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://attic.xuyh0120.win/lantian"
-      # "https://cache.garnix.io"
-      "https://noctalia.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
-      # "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
-  };
+    };
 
   nix.gc = {
     automatic = false;
@@ -62,39 +46,6 @@
     systemd-boot.configurationLimit = 10;
     efi.canTouchEfiVariables = true;
   };
-
-  # kernel - cachyos(1) or zen(2)
-  #boot.kernelPackages = pkgs.cachyosKernels."linuxPackages-cachyos-latest";
-  boot.kernelPackages = pkgs.linuxPackages_zen;
-
-  boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
-  boot.kernel.sysctl."vm.swappiness" = 10;
-  boot.consoleLogLevel = 3;
-  boot.initrd.verbose = false;
-  boot.initrd.systemd.enable = false;
-  boot.kernel.sysctl = {
-  "vm.vfs_cache_pressure" = 50;  # default 100, keeps file cache longer
-  "vm.dirty_ratio" = 10;
-  "vm.dirty_background_ratio" = 5;
-  };
-  powerManagement.cpuFreqGovernor = "schedutil";
-  services.udev.extraRules = ''
-  ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/scheduler}="mq-deadline"
-  '';
-
-  boot.blacklistedKernelModules = [
-  "joydev"             # joystick - xbox controller on wayland doesn't use this
-  "mousedev"           # legacy mouse interface - wayland uses evdev
-  "mac_hid"            # mac HID compat layer - you're not on a mac lol
-  "serio_raw"          # raw serio interface - nothing needs it
-  "8250_dw"            # designware serial UART - not needed
-  "snd_seq_dummy"      # dummy midi sequencer
-  "dmi_sysfs"          # dmi info via sysfs - not critical
-  "intel_powerclamp"   # intel cpu power clamping - earlyoom handles pressure instead
-  "tiny_power_button"  # alternative power button handler - redundant
-  "ahci"
-  "libahci"
-];
 
   fileSystems."/mnt/torrent-usb" = {
   device = "/dev/disk/by-label/torrent-usb";
@@ -212,34 +163,7 @@
   };
 
 
-  # ============================================================
-  # LOCALE & INPUT
-  # ============================================================
-
-  time.timeZone = "Europe/Dublin";
-
-  i18n.defaultLocale = "en_IE.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS        = "en_IE.UTF-8";
-    LC_IDENTIFICATION = "en_IE.UTF-8";
-    LC_MEASUREMENT    = "en_IE.UTF-8";
-    LC_MONETARY       = "en_IE.UTF-8";
-    LC_NAME           = "en_IE.UTF-8";
-    LC_NUMERIC        = "en_IE.UTF-8";
-    LC_PAPER          = "en_IE.UTF-8";
-    LC_TELEPHONE      = "en_IE.UTF-8";
-    LC_TIME           = "en_IE.UTF-8";
-  };
-
-  console.keyMap = "uk";
-
-  services.xserver.xkb = {
-    layout = "gb";
-    variant = "gla";
-  };
-
-
-  # ============================================================
+  #=============================================================
   # USERS
   # ============================================================
 

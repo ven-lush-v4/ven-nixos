@@ -1,4 +1,4 @@
-https://forthebadge.com/badges/ctrl-c-ctrl-v.svg
+
 
 welcome to my nixOS repo!
 
@@ -18,10 +18,11 @@ the config uses home-manager, flakes, and partial modularisation of configuratio
 ├── hardware-configuration.nix
 ├── home.nix
 ├── modules
+│   ├── locale.nix # misc locale related stuff 
 │   ├── boot.nix # for settings related to boot
 │   ├── caches.nix # for nix substitutors and caches
 │   ├── kernel.nix # for kernel related settings
-│   └── packages.nix # system packages
+│   └──packages.nix # system packages
 ├── README.md
 └── sway
     └── config
