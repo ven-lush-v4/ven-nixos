@@ -70,7 +70,7 @@ gaps outer 2
 smart_gaps on
 
 # ── swayfx effects ────────────────────────────────────────────────────────────
-corner_radius 5
+corner_radius 1
 
 blur disable
 blur_passes  1
@@ -138,7 +138,7 @@ bindsym $mod+Shift+b exec flatpak run waterfox
 bindsym $mod+F12     exec kitty --class kitty-microfetch -e sh -c "microfetch; read -r"
 bindsym $mod+Shift+e   exec kitty yazi
 bindsym $mod+Shift+g   exec kitty sudo lazygit -p /etc/nixos/
-bindsym $mod+Shift+h   exec kitty hx /etc/nixos/
+bindsym $mod+Shift+h   exec kitty fish -ic "sudo hx /etc/nixos/"
 bindsym $mod+Shift+r   exec kitty nh os switch /etc/nixos
 
 # ─────────────────────────────────────────────────────────────────────────────

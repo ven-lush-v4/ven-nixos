@@ -20,9 +20,12 @@
     };
 
     noctalia = {
-	url = "github:noctalia-dev/noctalia-shell/59f71f7f1b80424dbc2a95bc61185b7ad1bf5577";
+	url = "github:noctalia-dev/noctalia-shell/e6dd48e480d4f6c270d37d94b046a96ad1c8d0db";
 	};
 
+    nixcord = {
+      url = "github:4evy/nixcord";
+    };
    
     nix-index-database = {
       url = "github:nix-community/nix-index-database";

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ inputs, pkgs, ... }: {
 
 
   home.file = {
@@ -15,6 +15,11 @@
     homeDirectory = "/home/ven";
     stateVersion = "26.05";
     sessionPath = [ "$HOME/.local/bin" ];
+
+    imports = [
+      inputs.nixcord.homeModules.nixcord
+      ./home-modules/nixcord.nix
+    ];
 
     packages = with pkgs; [
       brightnessctl
@@ -135,20 +140,21 @@
       nix-test       = "nh os test /etc/nixos";
       nix-generations = "sudo nix-env --list-generations --profile /nix/var/nix/profiles/system";
       nix-clean = "sudo nix-collect-garbage -d && nh clean all && nix-store --optimise";
-
+      nix-recovery = "fsck.fat -f /dev/sda1/ && fsck.ext4 -f /dev/sda4 && sudo mount /dev/sda1 /boot && sudo mount /dev/sda4 /home && exit";
+      
       # quick config editing
       nixconf   = "sudo nano /etc/nixos/configuration.nix";
       homeconf  = "sudo nano /etc/nixos/home.nix";
       swayconf = "sudo nano /etc/nixos/sway/config";
       flakeconf = "sudo nano /etc/nixos/flake.nix";
-      hxnix = "hx /etc/nixos/";
-      hxflake = "hx /etc/nixos/flake.nix";
-      hxhome = "hx /etc/nixos/home.nix";
-      hxsway = "hx /etc/nixos/sway/config";
+      hxnix = "sudo hx /etc/nixos/";
+      hxflake = "sudo hx /etc/nixos/flake.nix";
+      hxhome = "sudo hx /etc/nixos/home.nix";
+      hxsway = "sudo hx /etc/nixos/sway/config";
 
       # git
       gitnix   = "sudo lazygit -p /etc/nixos";
-      gitaddnix = "git -C /etc/nixos add .";
+      gitaddnix = "sudo git -C /etc/nixos add .";
 
       # misc
       fetch       = "microfetch";

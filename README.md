@@ -22,7 +22,7 @@ the config uses home-manager, flakes, and partial modularisation of configuratio
 │   ├── boot.nix # for settings related to boot
 │   ├── caches.nix # for nix substitutors and caches
 │   ├── kernel.nix # for kernel related settings
-│   └──packages.nix # system packages
+│   └── packages.nix # system packages
 ├── README.md
 └── sway
     └── config

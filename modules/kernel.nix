@@ -6,7 +6,7 @@
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
   boot.kernelParams = [ "quiet" "splash" "udev.log_priority=3" ];
-  boot.kernel.sysctl."vm.swappiness" = 10;
+  boot.kernel.sysctl."vm.swappiness" = 150;
   boot.consoleLogLevel = 3;
   boot.initrd.verbose = false;
   boot.initrd.systemd.enable = false;
@@ -14,11 +14,17 @@
   "vm.vfs_cache_pressure" = 50;  # default 100, keeps file cache longer
   "vm.dirty_ratio" = 10;
   "vm.dirty_background_ratio" = 5;
+  "vm.page-cluster" = 0;
+  "vm.dirty_bytes" = 268435456;
   };
   powerManagement.cpuFreqGovernor = "schedutil";
   services.udev.extraRules = ''
   ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/scheduler}="mq-deadline"
   '';
+systemd.tmpfiles.rules = [
+  "w /sys/kernel/mm/transparent_hugepage/defrag - - - - defer+madvise"
+];
+
 
   boot.blacklistedKernelModules = [
   "joydev"             # joystick - xbox controller on wayland doesn't use this
