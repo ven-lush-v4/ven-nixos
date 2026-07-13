@@ -20,12 +20,8 @@
     };
 
     noctalia = {
-	url = "github:noctalia-dev/noctalia-shell/e6dd48e480d4f6c270d37d94b046a96ad1c8d0db";
-	};
-
-    nixcord = {
-      url = "github:4evy/nixcord";
-    };
+     	url = "github:noctalia-dev/noctalia/cachix/";
+	  };
    
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -41,27 +37,24 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-#    ytm-player.url = "github:peternaame-boop/ytm-player";
-
-#    claude-desktop.url = "github:patrickjaja/claude-desktop-bin";
-
-#    concord.url = "github:chojs23/concord";
-  };
+ };
 
 
   # ============================================================
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, helium, nix-flatpak, noctalia, lix-module,  ... }: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, helium, nix-flatpak, noctalia, lix-module,  ... }@inputs: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix
         home-manager.nixosModules.default
         nix-index-database.nixosModules.nix-index
         nix-flatpak.nixosModules.nix-flatpak
         lix-module.nixosModules.lixFromNixpkgs
+         { home-manager.extraSpecialArgs = { inherit inputs; }; }
         # overlays
         {
           nixpkgs.overlays = [
@@ -69,7 +62,7 @@
  #           ytm-player.overlays.default
           ];
         }
-
+        
         # extra packages (not in nixpkgs) 
         {
           environment.systemPackages = [

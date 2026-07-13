@@ -29,12 +29,14 @@
     options = "--delete-older-than 7d";
   };
 
+
   home-manager = {
-    users.ven = import ./home.nix;
-    useGlobalPkgs = true;
-    useUserPackages = true;
-    backupFileExtension = "backup";
-  };
+  useGlobalPkgs = true;
+  useUserPackages = true;
+  backupFileExtension = "backup";
+  extraSpecialArgs = { inherit inputs; }; # from the earlier fix
+  users.ven.imports = [ ./home.nix  ];
+ };
 
 
   # ============================================================

@@ -101,19 +101,15 @@
     obs-studio
     kdePackages.kdenlive
     rmpc
-    #(ytm-player.overrideAttrs { doCheck = false; })
     youtube-tui
 
     # --- apps ---
     # obsidian
     qbittorrent
-    nicotine-plus
     proton-vpn
-    protonmail-desktop
     localsend
-    easyrpg-player
-    legcord
     equibop
+    epiphany
 
     # --- sway utils ---
     autotiling
@@ -140,7 +136,6 @@
       "org.freedownloadmanager.Manager"
       "me.timschneeberger.GalaxyBudsClient"
       "org.onlyoffice.desktopeditors"
-      "dev.vencord.Vesktop"
       "io.itch.itch"
       "com.heroicgameslauncher.hgl"
       "hu.kramo.Cartridges"
