@@ -167,10 +167,14 @@
 
 
   # ============================================================
-  # SERVICES
+  # SYNCTHING
   # ============================================================
 
-  services.syncthing.enable = false;
+  services.syncthing.enable = true;
+  services.syncthing.tray = {
+    enable = true;
+    package = pkgs.syncthingtray-minimal;
+  };
 
 
   # ============================================================

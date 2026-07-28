@@ -32,7 +32,7 @@
     gvfs.enable = true;
     tuned.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
-    syncthing.enable = false;
+    usbmuxd.enable = true;
   };
 
   # ============================================================
@@ -109,6 +109,7 @@
     proton-vpn
     localsend
     equibop
+    concord
     epiphany
 
     # --- sway utils ---
