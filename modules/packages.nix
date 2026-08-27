@@ -1,5 +1,5 @@
 # packages.nix
-{pkgs, ...}: {
+{ pkgs, ... }: {
 
   # ============================================================
   # PROGRAMS & SERVICES
@@ -15,15 +15,15 @@
       binfmt = true;
     };
     nix-ld = {
-     enable = true;
-     libraries = with pkgs; [
-       zlib
-       stdenv.cc.cc
-       openssl
-       alsa-lib
-       libopus
-     ];  
-  };
+      enable = true;
+      libraries = with pkgs; [
+        zlib
+        stdenv.cc.cc
+        openssl
+        alsa-lib
+        libopus
+      ];
+    };
   };
 
   services = {
@@ -32,7 +32,7 @@
     gvfs.enable = true;
     tuned.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
-    usbmuxd.enable = true;
+    usbmuxd.enable = false;
   };
 
   # ============================================================
@@ -40,44 +40,38 @@
   # ============================================================
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" "electron-39.8.10" ];
+  nixpkgs.config.permittedInsecurePackages = [ "electron-39.8.10" ];
 
   environment.systemPackages = with pkgs; [
     # --- editors & lsp ---
     helix
-    nil                          # nix lsp
+    nixd # nix lsp
     vscode-langservers-extracted # html/css/json lsp
-    lua-language-server
-    hyprls
+    taplo
+    fish-lsp
+    marksman
 
     # --- terminal & shell utils ---
     btop
-    mpv
     fzf
-    fd
-    jq
     curl
-    tldr
-    navi
     microfetch
     cmatrix
     lazygit
     git
-    gh
     python3
+    gh
     nh
-    nixmate
-    ventoy
     yazi
     kitty
-    systemctl-tui
     yewtube
 
     # --- desktop & theming ---
     swayfx
-    noctalia-shell #v4
+    vicinae
+    #noctalia-shell #v4
     nwg-look
-    noctalia-qs
+    #noctalia-qs
     adw-gtk3
     gtk3
     glib
@@ -93,36 +87,35 @@
     udisks2
     udiskie
     exfatprogs
-    xdelta    
+    aria2
 
     # --- media ---
     vlc
     gimp
     obs-studio
-    kdePackages.kdenlive
+    #kdePackages.kdenlive
     rmpc
     youtube-tui
 
     # --- apps ---
-    # obsidian
     qbittorrent
     proton-vpn
     localsend
+    syncthing
     equibop
     concord
     epiphany
+    # bitwarden-desktop
 
     # --- sway utils ---
     autotiling
-    satty
-    trayscale
 
     # --- hardware & connectivity ---
     android-tools
     scrcpy
     upower
     power-profiles-daemon
-    mission-center
+    #mission-center
 
     # --- print/scan ---
     system-config-printer
@@ -137,16 +130,6 @@
       "org.freedownloadmanager.Manager"
       "me.timschneeberger.GalaxyBudsClient"
       "org.onlyoffice.desktopeditors"
-      "io.itch.itch"
-      "com.heroicgameslauncher.hgl"
-      "hu.kramo.Cartridges"
     ];
   };
-
-
-
-
-
-
-  
 }

@@ -8,6 +8,7 @@
      ./modules/packages.nix
      ./modules/caches.nix
      ./modules/locale.nix
+     ./configs/noctalia.nix
      ];
 
 
@@ -19,8 +20,8 @@
     experimental-features = [ "nix-command" "flakes" ];
     auto-optimise-store = false;
     trusted-users = [ "root" "ven" ];
-    max-jobs = 1;
-    cores = 1;
+    # max-jobs = 1;
+    cores = 2;
     };
 
   nix.gc = {
@@ -40,7 +41,7 @@
 
 
   # ============================================================
-  # BOOT & KERNEL
+  # AUTO-MOUNTS
   # ============================================================
 
 
@@ -48,19 +49,8 @@
   device = "/dev/disk/by-label/torrent-usb";
   fsType = "exfat";
   options = [ "nofail" "x-systemd.automount" "uid=1000" "gid=100" ];
-  };  
-  
-
-  # services.displayManager.ly = {
-  #   enable = true;
-  #   settings = {
-  #     animation = "matrix";
-  #     vi_mode = false;
-  #     default_enviroment = "hyprland";
-  #   };
-  # };
-
-
+  };
+    
   # ============================================================
   # HARDWARE
   # ============================================================
@@ -131,7 +121,7 @@
   };
 
   # suppress kded6 autostart (not needed on hyprland)
-  environment.etc."xdg/autostart/kded6.desktop".source = "/dev/null";
+  # environment.etc."xdg/autostart/kded6.desktop".source = "/dev/null";
   environment.pathsToLink = [ "/share/gsettings-schemas" "/share/glib-2.0" ];
 
   security.sudo.extraConfig = ''
@@ -196,7 +186,6 @@
     nerd-fonts.jetbrains-mono
     ubuntu-classic
     maple-mono.NF
-    nerd-fonts.space-mono
   ];
 
 

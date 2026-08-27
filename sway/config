@@ -136,7 +136,7 @@ bindsym $mod+b       exec helium
 bindsym $mod+k       exec kdeconnect
 bindsym $mod+Shift+b exec flatpak run waterfox
 bindsym $mod+F12     exec kitty --class kitty-microfetch -e sh -c "microfetch; read -r"
-bindsym $mod+Shift+e   exec kitty yazi
+bindsym $mod+Shift+e   exec kitty y
 bindsym $mod+Shift+g   exec kitty sudo lazygit -p /etc/nixos/
 bindsym $mod+Shift+h   exec kitty fish -ic "sudo hx /etc/nixos/"
 bindsym $mod+Shift+r   exec kitty nh os switch /etc/nixos
@@ -145,7 +145,8 @@ bindsym $mod+Shift+r   exec kitty nh os switch /etc/nixos
 # KEYBINDINGS — NOCTALIA SHELL IPC
 # ─────────────────────────────────────────────────────────────────────────────
 
-bindsym $mod+space           exec $ipc panel-toggle launcher
+bindsym $mod+space           exec vicinae toggle
+bindsym $mod+Shift+space     exec $ipc panel-toggle launcher
 bindsym $mod+slash           exec $ipc settings-toggle
 bindsym $mod+Escape          exec $ipc panel-toggle session
 bindsym $mod+Print           exec $ipc screenshot-region

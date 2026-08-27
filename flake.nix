@@ -1,7 +1,5 @@
 {
   description = "ven-nixos";
-
-
   # ============================================================
   # INPUTS
   # ============================================================
@@ -22,6 +20,10 @@
     noctalia = {
      	url = "github:noctalia-dev/noctalia/cachix/";
 	  };
+
+	  noctalia-greeter = {
+	    url = "github:noctalia-dev/noctalia-greeter";
+	  };
    
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -30,11 +32,11 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
 
-   # nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
+   # vicinae.url = "github:vicinaehq/vicinae";
 
     helium = {
-      url = "github:AlvaroParker/helium-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:AlvaroParker/helium-nix/165e62236f2f5793a9672204f966c2d12b6e2d3e";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
  };
@@ -44,7 +46,7 @@
   # OUTPUTS
   # ============================================================
 
-  outputs = { nixpkgs, home-manager, self, nix-index-database, helium, nix-flatpak, noctalia, lix-module,  ... }@inputs: {
+  outputs = { nixpkgs, home-manager, self, nix-index-database, helium, nix-flatpak, noctalia, noctalia-greeter, lix-module, ... }@inputs: {
     nixosConfigurations.ven-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = { inherit inputs; };
@@ -54,22 +56,19 @@
         nix-index-database.nixosModules.nix-index
         nix-flatpak.nixosModules.nix-flatpak
         lix-module.nixosModules.lixFromNixpkgs
+        # vicinae.nixosModules.default
          { home-manager.extraSpecialArgs = { inherit inputs; }; }
         # overlays
         {
           nixpkgs.overlays = [
-           # nix-cachyos-kernel.overlays.pinned
- #           ytm-player.overlays.default
           ];
         }
         
-        # extra packages (not in nixpkgs) 
+        # packages via flake inputs 
         {
           environment.systemPackages = [
             helium.packages.x86_64-linux.default
-#	    claude-desktop.packages.x86_64-linux.default
-            noctalia.packages.x86_64-linux.default
-#            concord.packages.x86_64-linux.default
+            # noctalia.packages.x86_64-linux.default
           ];
         }
 

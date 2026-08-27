@@ -1,11 +1,13 @@
-{ inputs, pkgs, ... }: {
+{ pkgs, config, ... }: {
 
+
+  imports = [
+    ./configs/configs.nix
+  ];
+ 
 
   home.file = {
   };
-  
-  
-
   # ============================================================
   # HOME
   # ============================================================
@@ -17,9 +19,8 @@
     sessionPath = [ "$HOME/.local/bin" ];
 
     # imports = [
-      # inputs.nixcord.homeModules.nixcord
-      # ./home-modules/nixcord.nix
-    # ];
+
+          # ];
 
     packages = with pkgs; [
       brightnessctl
@@ -33,10 +34,7 @@
       size = 24;
     };
   };
-
   fonts.fontconfig.enable = true;
-
-
   # ============================================================
   # THEMING
   # ============================================================
@@ -64,7 +62,6 @@
     platformTheme.name = "qt6ct";
   };
 
-
   # ============================================================
   # PROGRAMS
   # ============================================================
@@ -86,32 +83,24 @@
     '';
   };
 
-  programs.starship = {
+  programs.zoxide = {
     enable = true;
-    settings = {
-      format = "$os$username$directory$git_branch$git_status$cmd_duration$line_break$character";
-
-      nodejs.disabled = true;
-      python.disabled = true;
-      rust.disabled = true;
-
-      os.disabled = false;
-
-      character = {
-        success_symbol = "[❯](green)";
-        error_symbol = "[❯](red)";
-      };
-
-      directory = {
-        truncation_length = 3;
-        truncate_to_repo = true;
-      };
-
-      git_branch.symbol = " ";
-
-      cmd_duration.min_time = 2000;
-    };
+    enableFishIntegration = true;
   };
+
+  programs.eza = {
+  enable = true;
+  enableFishIntegration = true;
+  extraOptions = [
+      # "-l"
+      "--icons"
+      "--git"
+      "--group-directories-first"
+      # "--time-style=relative"
+      "--no-user"
+      "--no-permissions"
+    ];
+ };
 
   programs.fish = {
     enable = true;
@@ -126,6 +115,17 @@
         exec sway
       end
     '';
+
+     functions = {
+    y = ''
+      set tmp (mktemp -t "yazi-cwd.XXXXXX")
+      command yazi $argv --cwd-file="$tmp"
+      if read -z cwd < "$tmp"; and [ "$cwd" != "$PWD" ]; and test -d "$cwd"
+        builtin cd -- "$cwd"
+      end
+      command rm -f -- "$tmp"
+    '';
+  };
 
     plugins = [
       { name = "z";        src = pkgs.fishPlugins.z.src; }
@@ -162,6 +162,14 @@
       fetch       = "microfetch";
       adb-phone   = "adb connect ven-phone:5555";
       scrcpy      = "scrcpy --max-size 1080 --window-width 540 --window-height 1200";
+
+      # linux commands
+      c = "clear";
+      ls = "eza --icons=always";
+      # "ls -la" = "eza -a --icons=always";
+      lt = "eza -T --icons=always";
+      lsl = "eza -l --icons=always";      
+      cd = "z";
     };
   };
 
@@ -169,11 +177,10 @@
   # ============================================================
   # SYNCTHING
   # ============================================================
-
   services.syncthing.enable = true;
   services.syncthing.tray = {
     enable = true;
-    package = pkgs.syncthingtray-minimal;
+    package = pkgs.syncthingtray;
   };
 
 
@@ -189,5 +196,15 @@
   config.bars = [];
   extraConfig = builtins.readFile ./sway/config;
  };
+ 
+
+ xdg.desktopEntries.helixnotes = {
+  name = "HelixNotes";
+  comment = "Notes app";
+  exec = "${config.home.homeDirectory}/.local/bin/HelixNotes";
+  icon = "${config.home.homeDirectory}/Pictures/icons/helixnotes.png";
+  terminal = false;
+  categories = [ "Utility" "Office" ];
+};
 
 }

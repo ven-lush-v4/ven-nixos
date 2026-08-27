@@ -1,13 +1,13 @@
 # boot.nix
-
 {pkgs, ...}:
+
 { boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.configurationLimit = 10;
     efi.canTouchEfiVariables = true;
 };
  boot.plymouth = {
-    enable = true;
+    enable = false;
     theme = "dna";
     themePackages = with pkgs; [
       (adi1090x-plymouth-themes.override {
@@ -15,5 +15,5 @@
       })
     ];
 };
-    services.getty.autologinUser = "ven";
+    # services.getty.autologinUser = "ven";
 }
