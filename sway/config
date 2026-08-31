@@ -28,10 +28,10 @@ output * {
 # ─────────────────────────────────────────────────────────────────────────────
 
 exec noctalia
-exec pkill kded6
-exec sleep 3 && trayscale --window-type=utility --hide-window
-exec udiskie --no-tray
-exec /run/current-system/sw/bin/kdeconnect-indicator
+# exec pkill kded6
+# exec sleep 3 && trayscale --window-type=utility --hide-window
+# exec udiskie --no-tray
+# exec /run/current-system/sw/bin/kdeconnect-indicator
 exec autotiling
 
 # pass env vars to dbus/systemd session
